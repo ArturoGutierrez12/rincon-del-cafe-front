@@ -8,7 +8,7 @@
   padding: 40px 16px;
   background:
     radial-gradient(circle at 80% 20%, rgba(201, 165, 116, .25), transparent 55%),
-    var(rgba(117, 107, 92, 0.678));
+    var(--brown);
 }
 
 .login-tarjeta {
