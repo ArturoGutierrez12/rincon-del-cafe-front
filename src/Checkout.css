@@ -1,0 +1,120 @@
+/* src/pages/Checkout.css — usa las variables de tu tema */
+
+.checkout-pagina,
+.ticket-pagina {
+  min-height: 100vh;
+  padding: 32px 8vw 72px;
+  background: var(--card-bg);
+}
+
+.checkout-volver {
+  display: inline-block;
+  margin-bottom: 20px;
+  font-size: .9rem;
+  font-weight: 600;
+  color: var(--brown);
+}
+
+/* ---------- Checkout ---------- */
+.checkout-grid {
+  display: grid;
+  grid-template-columns: 1fr 340px;
+  gap: 28px;
+  max-width: 1000px;
+  margin: 0 auto;
+  align-items: start;
+}
+@media (max-width: 760px) {
+  .checkout-grid { grid-template-columns: 1fr; }
+}
+
+.checkout-tarjeta {
+  background: var(--cream);
+  border-radius: 16px;
+  border-top: 4px solid var(--gold);
+  padding: 28px;
+  box-shadow: 0 14px 28px rgba(62, 39, 35, .12);
+}
+.checkout-tarjeta h1,
+.resumen h2 { font-size: 1.5rem; color: var(--brown); }
+
+/* Métodos de pago */
+.pagos { border: none; display: flex; flex-direction: column; gap: 10px; }
+.pagos legend { font-size: .82rem; font-weight: 600; color: var(--brown-dark); margin-bottom: 8px; }
+.pago {
+  display: flex;
+  align-items: flex-start;
+  gap: 10px;
+  padding: 12px 14px;
+  border: 1.5px solid rgba(111, 78, 55, .3);
+  border-radius: 10px;
+  cursor: pointer;
+}
+.pago.activo { border-color: var(--gold); background: rgba(201, 165, 116, .12); }
+.pago span { display: flex; flex-direction: column; gap: 2px; }
+.pago strong { font-size: .9rem; color: var(--brown-dark); }
+.pago small { font-size: .78rem; color: var(--muted); }
+
+/* Resumen del pedido */
+.resumen ul { list-style: none; margin: 16px 0; display: flex; flex-direction: column; gap: 10px; }
+.resumen li { display: flex; justify-content: space-between; gap: 12px; font-size: .88rem; color: var(--brown-dark); }
+.resumen-total {
+  display: flex;
+  justify-content: space-between;
+  border-top: 1px solid var(--line);
+  padding-top: 14px;
+  color: var(--brown-dark);
+}
+
+/* ---------- Ticket ---------- */
+.ticket {
+  width: min(420px, 100%);
+  margin: 0 auto;
+  background: var(--cream);
+  color: var(--brown-dark);
+  border-radius: 12px;
+  padding: 28px 24px;
+  box-shadow: 0 14px 28px rgba(62, 39, 35, .12);
+  font-size: .88rem;
+}
+.ticket h1 { font-size: 1.4rem; text-align: center; color: var(--brown); }
+.ticket h2 { font-size: .95rem; margin: 18px 0 6px; color: var(--brown); }
+.ticket-sub { text-align: center; color: var(--muted); margin-bottom: 16px; }
+
+.ticket-datos {
+  border-top: 1px dashed var(--muted);
+  border-bottom: 1px dashed var(--muted);
+  padding: 12px 0;
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+.ticket-datos div { display: flex; justify-content: space-between; gap: 12px; }
+.ticket-datos dt { color: var(--muted); }
+
+.ticket-tabla { width: 100%; border-collapse: collapse; margin-top: 16px; }
+.ticket-tabla th { text-align: left; font-size: .78rem; color: var(--muted); padding-bottom: 6px; }
+.ticket-tabla th:not(:first-child),
+.ticket-tabla td:not(:first-child) { text-align: right; white-space: nowrap; padding-left: 10px; }
+.ticket-tabla td { padding: 4px 0; }
+
+.ticket-total {
+  display: flex;
+  justify-content: space-between;
+  border-top: 1px dashed var(--muted);
+  margin-top: 12px;
+  padding-top: 12px;
+  font-size: 1rem;
+}
+.ticket-nota { margin-top: 14px; font-size: .75rem; color: var(--muted); text-align: center; }
+
+.ticket-acciones { display: flex; justify-content: center; gap: 12px; margin-top: 24px; flex-wrap: wrap; }
+.btn-claro { border-color: var(--brown); color: var(--brown); }
+.btn-claro:hover { background: var(--brown); color: var(--cream); }
+
+/* Al imprimir: solo el ticket */
+@media print {
+  header, .no-imprimir { display: none !important; }
+  .ticket-pagina { background: #fff; padding: 0; min-height: 0; }
+  .ticket { box-shadow: none; }
+}

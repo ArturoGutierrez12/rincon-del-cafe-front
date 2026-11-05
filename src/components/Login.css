@@ -1,0 +1,94 @@
+/* src/pages/Login.css — usa las variables de tu index.css / App.css */
+
+.login-pagina {
+  min-height: calc(100vh - 70px); /* alto de pantalla menos el header */
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 40px 16px;
+  background:
+    radial-gradient(circle at 80% 20%, rgba(201, 165, 116, .25), transparent 55%),
+    var(rgba(117, 107, 92, 0.678));
+}
+
+.login-tarjeta {
+  width: min(420px, 100%);
+  background: var(--cream);
+  border-radius: 16px;
+  border-top: 4px solid var(--gold);
+  padding: 32px 28px;
+  box-shadow: 0 14px 28px rgba(62, 39, 35, .14);
+}
+.login-tarjeta h1 { font-size: 1.7rem; color: var(--brown); }
+.login-sub { color: var(--muted); font-size: .9rem; margin: 6px 0 24px; }
+
+/* Formulario y campos (reutilizables en otros formularios) */
+.formulario { display: flex; flex-direction: column; gap: 16px; }
+
+.campo { display: flex; flex-direction: column; gap: 6px; }
+.campo label { font-size: .82rem; font-weight: 600; color: var(--brown-dark); }
+.campo input {
+  padding: 12px 14px;
+  font: inherit;
+  font-size: .92rem;
+  color: var(--brown-dark);
+  background: var(--cream);
+  border: 1.5px solid rgba(111, 78, 55, .3);
+  border-radius: 10px;
+  transition: border-color .2s, box-shadow .2s;
+}
+.campo input:focus {
+  outline: none;
+  border-color: var(--gold);
+  box-shadow: 0 0 0 3px rgba(201, 165, 116, .3);
+}
+.campo input[aria-invalid="true"] { border-color: #b3261e; }
+.campo-error { font-size: .78rem; color: #b3261e; }
+
+.check-ver {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-size: .8rem;
+  color: var(--muted);
+  cursor: pointer;
+}
+
+.form-error {
+  font-size: .85rem;
+  color: #b3261e;
+  background: rgba(179, 38, 30, .08);
+  border-radius: 8px;
+  padding: 10px 12px;
+}
+
+/* El botón reutiliza .btn .btn-gold; solo agregamos el estado deshabilitado */
+.formulario .btn { margin-top: 4px; }
+.btn:disabled { opacity: .6; cursor: not-allowed; transform: none; }
+.login-cerrar {
+  position: absolute;
+  top: 12px;
+  right: 12px;
+  width: 66px;
+  height: 66px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: #e0a79f;
+  border: none;
+  border-radius: 50%;
+  font-size: 1.1rem;
+  color: var(--muted);
+  cursor: pointer;
+  transition: background .2s, color .2s;
+}
+
+.login-cerrar:hover {
+  background: var(--line);
+  color: var(--brown-dark);
+}
+
+.login-cerrar:focus-visible {
+  outline: 2px solid var(--gold);
+  outline-offset: 2px;
+}

@@ -1,0 +1,136 @@
+/* src/pages/admin/Admin.css — usa las variables de tu tema */
+
+.admin-pagina {
+  min-height: 100vh;
+  padding: 32px 6vw 72px;
+  background: var(--card-bg);
+  color: var(--brown-dark);
+}
+
+.admin-cabecera {
+  display: flex;
+  justify-content: space-between;
+  align-items: baseline;
+  gap: 16px;
+  flex-wrap: wrap;
+  margin-bottom: 20px;
+}
+.admin-cabecera h1 { font-size: 1.7rem; color: var(--brown); }
+.admin-volver { font-size: .9rem; font-weight: 600; color: var(--brown); }
+
+/* Pestañas */
+.admin-tabs { display: flex; gap: 8px; flex-wrap: wrap; margin-bottom: 24px; border-bottom: 1px solid var(--line); }
+.admin-tab {
+  padding: 10px 18px;
+  border: none;
+  background: none;
+  font: inherit;
+  font-weight: 600;
+  color: var(--muted);
+  cursor: pointer;
+  border-bottom: 3px solid transparent;
+}
+.admin-tab.activa { color: var(--brown); border-bottom-color: var(--gold); }
+
+/* Barra de herramientas */
+.admin-barra { display: flex; gap: 10px; flex-wrap: wrap; margin-bottom: 16px; }
+.admin-barra input[type="search"] { flex: 1 1 200px; }
+.admin-barra input,
+.admin-barra select,
+.admin-modal-panel input,
+.admin-modal-panel select,
+.admin-modal-panel textarea {
+  padding: 9px 12px;
+  border: 1.5px solid rgba(111, 78, 55, .3);
+  border-radius: 8px;
+  font: inherit;
+  background: #fff;
+  color: var(--brown-dark);
+}
+
+/* Resumen */
+.admin-resumen { display: flex; gap: 14px; flex-wrap: wrap; margin-bottom: 16px; }
+.admin-resumen div {
+  background: var(--cream);
+  border-top: 3px solid var(--gold);
+  border-radius: 10px;
+  padding: 12px 20px;
+  display: flex;
+  flex-direction: column;
+  box-shadow: 0 6px 14px rgba(62, 39, 35, .08);
+}
+.admin-resumen span { font-size: .78rem; color: var(--muted); }
+.admin-resumen strong { font-size: 1.3rem; color: var(--brown); }
+
+/* Tablas */
+.admin-scroll { overflow-x: auto; background: var(--cream); border-radius: 12px; box-shadow: 0 6px 14px rgba(62, 39, 35, .08); }
+.admin-tabla { width: 100%; border-collapse: collapse; font-size: .9rem; }
+.admin-tabla th {
+  text-align: left;
+  padding: 12px 14px;
+  font-size: .78rem;
+  text-transform: uppercase;
+  letter-spacing: .04em;
+  color: var(--muted);
+  border-bottom: 1px solid var(--line);
+  white-space: nowrap;
+}
+.admin-tabla td { padding: 10px 14px; border-bottom: 1px solid var(--line); vertical-align: middle; }
+.admin-tabla tr:last-child td { border-bottom: none; }
+.fila-inactiva { opacity: .55; }
+.admin-miniatura { width: 40px; height: 40px; object-fit: contain; border-radius: 6px; }
+
+.admin-acciones { white-space: nowrap; }
+.admin-acciones button {
+  margin-right: 6px;
+  padding: 6px 12px;
+  border: 1.5px solid var(--brown);
+  border-radius: 8px;
+  background: none;
+  color: var(--brown);
+  font: inherit;
+  font-size: .82rem;
+  font-weight: 600;
+  cursor: pointer;
+}
+.admin-acciones button:hover { background: var(--brown); color: var(--cream); }
+
+.insignia { padding: 3px 10px; border-radius: 99px; font-size: .75rem; font-weight: 700; }
+.insignia-ok { background: rgba(76, 140, 80, .18); color: #2f6b34; }
+.insignia-off { background: rgba(160, 60, 40, .16); color: #8a2f1d; }
+
+/* Mensajes */
+.admin-error { margin: 10px 0; padding: 10px 14px; border-radius: 8px; background: rgba(160, 60, 40, .12); color: #8a2f1d; font-size: .88rem; }
+.admin-aviso { margin: 10px 0; padding: 10px 14px; border-radius: 8px; background: rgba(76, 140, 80, .15); color: #2f6b34; font-size: .88rem; cursor: pointer; }
+.admin-vacio { padding: 24px; text-align: center; color: var(--muted); }
+.admin-sub { color: var(--muted); font-size: .88rem; margin-bottom: 14px; }
+.admin-total { text-align: right; margin-top: 14px; font-size: 1.05rem; }
+
+/* Modal */
+.admin-modal {
+  position: fixed;
+  inset: 0;
+  background: rgba(30, 20, 15, .6);
+  display: grid;
+  place-items: center;
+  padding: 16px;
+  z-index: 1000;
+}
+.admin-modal-panel {
+  width: min(560px, 100%);
+  max-height: 90vh;
+  overflow-y: auto;
+  background: var(--cream);
+  border-radius: 16px;
+  border-top: 4px solid var(--gold);
+  padding: 24px;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+.admin-modal-panel h2 { font-size: 1.3rem; color: var(--brown); }
+.admin-modal-panel label { display: flex; flex-direction: column; gap: 4px; font-size: .82rem; font-weight: 600; flex: 1; }
+.admin-fila { display: flex; gap: 12px; }
+.admin-modal-botones { display: flex; justify-content: flex-end; gap: 10px; margin-top: 6px; }
+.btn-claro { border-color: var(--brown); color: var(--brown); }
+.btn-claro:hover { background: var(--brown); color: var(--cream); }
