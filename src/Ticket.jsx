@@ -61,11 +61,9 @@ export default function Ticket() {
         <p>{pedido.pagoEtiqueta}</p>
         {pedido.pago === 'transferencia' && (
           <p className="ticket-nota">
-            Datos de ejemplo: Banco Demo · CLABE 000 000 000000000000. No es una cuenta real.
+            Datos de ejemplo: Banco Demo · CLABE 000 000 000000000000.
           </p>
         )}
-
-        <p className="ticket-nota">Compra simulada con fines académicos.</p>
       </article>
 
       <div className="ticket-acciones no-imprimir">
