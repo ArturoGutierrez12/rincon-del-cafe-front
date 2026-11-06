@@ -35,10 +35,10 @@ export function Header({ totalItems, onToggleCarrito }) {
 
 {usuario ? (
   <>
-    <span className="header-usuario" title={usuario.usuario}>
-      {usuario.usuario}
+    <span className="header-usuario" title={usuario.nombre}>
+      {usuario.nombre}
     </span>
-    <button className="btn-salir" onClick={logout}>Salir</button>
+    <button className="btn-salir" onClick={logout}>Logout</button>
   </>
 ) : (
   <Link to="/login" className="cart-toggle" aria-label="Iniciar sesión" onClick={cerrarMenu}>
