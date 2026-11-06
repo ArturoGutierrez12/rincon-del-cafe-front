@@ -6,7 +6,7 @@ import { useAuth } from './context/AuthContext.jsx'
 import { useCarrito } from './context/CarritoContext.jsx'
 import { CampoFormulario } from './components/CampoFormulario.jsx'
 import './Checkout.css' // (los estilos de .formulario y .campo vienen de Login.css)
-import { finalizarCompra } from './components/ventasApi.js' // ajusta la ruta a donde lo tengas
+import { finalizarCompra } from './components/VentasApi.js' // ajusta la ruta a donde lo tengas
 
 
 // Métodos de pago sencillos y simulados. No se piden datos de tarjeta.
