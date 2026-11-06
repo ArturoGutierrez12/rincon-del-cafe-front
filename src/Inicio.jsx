@@ -37,7 +37,7 @@ function TarjetaProducto({ producto, onVer3D, onAgregar }) {
     <div className="card" style={{ '--accent': info.accent }}>
       <div className="card-visual">
         <span className="card-badge">{info.label}/</span>
-        <img src={`public/PRODUCTOS/${producto.id_categoria}/${producto.id_producto}.png`} />
+        <img src={`/PRODUCTOS/${producto.id_categoria}/${producto.id_producto}.png`} />
         
       </div>
       <div className="card-body">
