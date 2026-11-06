@@ -29,17 +29,17 @@
 /* Modo oscuro (opcional, respeta preferencia del sistema) */
 @media (prefers-color-scheme: dark) {
   :root:not([data-theme="light"]) {
-    --cream: #1E1512;
-    --card-bg: #2A1F1B;
-    --text: #EDE3DC;
-    --muted: #B8A99F;
+    --cream: #3A2D27;
+    --card-bg: #4A3A32;
+    --text: #FFF6EE;
+    --muted: #D9C9BC;
   }
 }
 :root[data-theme="dark"] {
-  --cream: #1E1512;
-  --card-bg: #2A1F1B;
-  --text: #EDE3DC;
-  --muted: #B8A99F;
+  --cream: #3A2D27;
+  --card-bg: #4A3A32;
+  --text: #FFF6EE;
+  --muted: #D9C9BC;
 }
 
 /* Reset base */
