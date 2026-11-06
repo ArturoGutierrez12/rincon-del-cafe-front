@@ -35,7 +35,7 @@ const categorias = {
 // Campos esperados por producto: id, nombre, descripcion, precio, categoria
 function TarjetaProducto({ producto, onVer3D, onAgregar }) {
   const info = categorias[producto.id_categoria]
-
+  const agotado = Number(producto.stock) <= 0
   return (
     <div className="card" style={{ '--accent': info.accent }}>
       <div className="card-visual">
@@ -51,8 +51,12 @@ function TarjetaProducto({ producto, onVer3D, onAgregar }) {
            <button className="view3d" onClick={() => onVer3D(producto)}>
             Info.
           </button>
-          <button className="add-to-cart" onClick={() => onAgregar(producto)}>
-            🛒 Agregar
+          <button
+            className="add-to-cart"
+            onClick={() => onAgregar(producto)}
+            disabled={agotado}
+          >
+            {agotado ? 'Sin existencia' : '🛒 Agregar'}
           </button>
         </div>
       </div>
