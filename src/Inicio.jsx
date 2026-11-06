@@ -10,6 +10,9 @@ import CafeteriaVR from './components/CafeteriaVR.jsx'
 import { Link } from 'react-router'
 import { Header } from './components/Header.jsx'
 import { useCarrito } from './context/CarritoContext.jsx'
+import { evento, itemGA } from './analytics.js'
+
+
 // Misma info de categorías del HTML. Las llaves deben coincidir con
 // el valor del campo `categoria` de tus productos.
 
@@ -45,7 +48,7 @@ function TarjetaProducto({ producto, onVer3D, onAgregar }) {
         <p>{producto.descripcion}</p>
         <div className="card-foot">
           <span className="price">${producto.precio}</span>
-          <button className="view3d" onClick={() => onVer3D(producto)}>
+           <button className="view3d" onClick={() => onVer3D(producto)}>
             Info.
           </button>
           <button className="add-to-cart" onClick={() => onAgregar(producto)}>
@@ -74,7 +77,15 @@ const { carrito, agregarAlCarrito, cambiarCantidad, quitarDelCarrito, totalItems
       .then((data) => setProductos(data))
       .catch((error) => console.error('Error al obtener productos:', error))
   }, [])
+const verProducto = (p) => {
+  evento('view_item', { currency: 'MXN', value: Number(p.precio), items: [itemGA(p)] })
+  setProductoActivo(p)
+}
 
+const agregar = (p) => {
+  evento('add_to_cart', { currency: 'MXN', value: Number(p.precio), items: [itemGA(p)] })
+  agregarAlCarrito(p)
+}
   const visibles =
     categoriaActiva === 'todos'
       ? productos
@@ -201,8 +212,8 @@ const { carrito, agregarAlCarrito, cambiarCantidad, quitarDelCarrito, totalItems
             <TarjetaProducto
               key={producto.id_producto}
               producto={producto}
-              onVer3D={setProductoActivo}
-              onAgregar={agregarAlCarrito}
+              onVer3D={verProducto}   // antes: setProductoActivo
+              onAgregar={agregar}     // antes: agregarAlCarrito
             />
           ))}
         </div>
