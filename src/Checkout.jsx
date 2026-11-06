@@ -7,7 +7,7 @@ import { useCarrito } from './context/CarritoContext.jsx'
 import { CampoFormulario } from './components/CampoFormulario.jsx'
 import './Checkout.css' // (los estilos de .formulario y .campo vienen de Login.css)
 import { finalizarCompra } from './components/VentasApi.js' // ajusta la ruta a donde lo tengas
-
+import { registrarCompra } from './analytics.js'
 
 // Métodos de pago sencillos y simulados. No se piden datos de tarjeta.
 const PAGOS = [
@@ -43,9 +43,7 @@ export default function Checkout() {
 if (!usuario) return <Navigate to="/login" replace />
 if (cargandoCarrito) return <p>Cargando pedido…</p>
 if (carrito.length === 0) return <Navigate to="/" replace />
-  // Sin sesión o sin productos no hay nada que comprar
-  if (!usuario) return <Navigate to="/login" replace />
-  if (carrito.length === 0) return <Navigate to="/" replace />
+
 
   const cambiar = (e) => {
     const { name, value } = e.target
@@ -69,32 +67,49 @@ if (carrito.length === 0) return <Navigate to="/" replace />
 
   setEnviando(true)
   setErrorServidor('')
+
   try {
     const resultado = await finalizarCompra(usuario.id_usuario)
 
+    const venta = resultado.venta
+
+    // Registrar compra real en Google Analytics
+    registrarCompra({
+      idVenta: venta.id_venta,
+      total: venta.total,
+      productos: carrito,
+    })
+
     const pedido = {
-  folio: resultado.id_venta
-    ? `RC-${resultado.id_venta}`
-    : 'RC-' + Date.now().toString().slice(-8),
-  fecha: new Date().toISOString(),
-  cliente: usuario.nombre,
-  envio: {
-    nombre: datos.nombre.trim(),
-    telefono: datos.telefono,
-    direccion: datos.direccion.trim(),
-    cp: datos.cp,
-  },
-  pago,
-  pagoEtiqueta: PAGOS.find((p) => p.id === pago).etiqueta,
-  items: carrito.map(({ producto, cantidad }) => ({
-    id_producto: producto.id_producto,
-    nombre: producto.nombre,
-    precio: Number(producto.precio),
-    cantidad,
-  })),
-  total,
-}
-    navigate('/ticket', { state: { pedido } })
+      folio: `RC-${venta.id_venta}`,
+      fecha: venta.fecha || new Date().toISOString(),
+
+      cliente: usuario.nombre,
+
+      envio: {
+        nombre: datos.nombre.trim(),
+        telefono: datos.telefono,
+        direccion: datos.direccion.trim(),
+        cp: datos.cp,
+      },
+
+      pago,
+      pagoEtiqueta: PAGOS.find((p) => p.id === pago).etiqueta,
+
+      items: carrito.map(({ producto, cantidad }) => ({
+        id_producto: producto.id_producto,
+        nombre: producto.nombre,
+        precio: Number(producto.precio),
+        cantidad,
+      })),
+
+      total: Number(venta.total),
+    }
+
+    navigate('/ticket', {
+      state: { pedido },
+    })
+
   } catch (error) {
     setErrorServidor(error.message)
     setEnviando(false)
@@ -165,7 +180,13 @@ if (carrito.length === 0) return <Navigate to="/" replace />
             ))}
           </fieldset>
 
-          <button type="submit" className="btn btn-gold">Confirmar compra</button>
+          <button
+            type="submit"
+            className="btn btn-gold"
+            disabled={enviando}
+          >
+          {enviando ? 'Procesando compra…' : 'Confirmar compra'}
+          </button>
         </form>
 
         <aside className="checkout-tarjeta resumen">
