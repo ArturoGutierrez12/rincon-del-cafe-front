@@ -72,6 +72,7 @@ export default function Inicio() {
   const [carritoAbierto, setCarritoAbierto] = useState(false) // 1. estado que faltaba
   const videoRef = useRef(null)
 const { carrito, agregarAlCarrito, cambiarCantidad, quitarDelCarrito, totalItems } = useCarrito()
+const [verVR, setVerVR] = useState(false)
   const [productos, setProductos] = useState([])
   useEffect(() => {
     fetch("https://api.rincondelcafe.tech/api/productos/listar.php", {
@@ -234,7 +235,9 @@ const agregar = (p) => {
         </div>
         <div className="vr-wrap">
           <span className="vr-hint">🖱️ Arrastra para mirar · WASD para caminar</span>
-          {/* <CafeteriaVR /> */}
+         {verVR
+  ? <Suspense fallback={<p>Cargando…</p>}><CafeteriaVR /></Suspense>
+  : <button className="btn btn-gold" onClick={() => setVerVR(true)}>Entrar a la cafetería virtual</button>}
         </div>
       </section>
 
@@ -242,10 +245,7 @@ const agregar = (p) => {
       {productoActivo && (
       <Modal3D producto={productoActivo} onClose={() => setProductoActivo(null)} />
       )}
-      <div className="vr-wrap">
-  <span className="vr-hint">🖱️ Arrastra para mirar · WASD para caminar</span>
-    <CafeteriaVR />
-  </div>
+      
 
       {/* Footer */}
       <footer id="contacto">
