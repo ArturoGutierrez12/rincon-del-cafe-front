@@ -55,8 +55,8 @@ export default function AdminProductos() {
 
   // ---------- Filtros ----------
   const visibles = productos.filter((p) => {
-    if (filtroEstado === 'activos' && !estaActivo(p)) return false
-    if (filtroEstado === 'inactivos' && estaActivo(p)) return false
+    if (filtroEstado === '1' && !estaActivo(p)) return false
+    if (filtroEstado === '0' && estaActivo(p)) return false
     if (busqueda.trim() && !String(p.nombre).toLowerCase().includes(busqueda.trim().toLowerCase())) {
       return false
     }
@@ -159,8 +159,8 @@ export default function AdminProductos() {
         />
         <select value={filtroEstado} onChange={(e) => setFiltroEstado(e.target.value)}>
           <option value="todos">Todos</option>
-          <option value="activos">Activos</option>
-          <option value="inactivos">Inactivos</option>
+          <option value="1">Activos</option>
+          <option value='0' >Inactivos</option>
         </select>
         <button className="btn btn-gold" onClick={abrirCrear}>+ Nuevo producto</button>
       </div>
