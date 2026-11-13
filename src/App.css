@@ -54,24 +54,43 @@ section { padding: 72px 8vw; }
 header {
   position: sticky; top: 0; z-index: 50;
   background: var(--brown); color: var(--cream);
-  padding: 16px 24px;
-  display: flex; align-items: center; justify-content: space-between;
+  padding: 12px 20px;
+  display: flex; align-items: center; gap: 16px;
 }
-.logo { font-family: var(--font-display); font-size: 1.4rem; font-weight: 700; color: var(--gold); }
-nav { display: flex; gap: 28px; }
+.logo {
+  font-family: var(--font-display); font-size: clamp(1.1rem, 4.5vw, 1.4rem);
+  font-weight: 700; color: var(--gold);
+  white-space: nowrap; overflow: hidden; text-overflow: ellipsis; min-width: 0;
+}
+
+/* En escritorio: logo a la izquierda, nav + carrito a la derecha */
+nav { display: flex; align-items: center; gap: 28px; margin-left: auto; }
 nav a { font-size: .95rem; font-weight: 500; opacity: .9; transition: opacity .2s; }
-nav button { height: auto; font-size: .95rem; font-weight: 500; opacity: .9; transition: opacity .2s; }
 nav a:hover { opacity: 1; color: var(--gold); }
+
+.header-acciones { display: flex; align-items: center; gap: 8px; flex-shrink: 0; }
+
+/* Áreas táctiles de 44px */
+.cart-toggle, .nav-toggle {
+  min-width: 44px; min-height: 44px;
+  display: flex; align-items: center; justify-content: center;
+}
 .nav-toggle { display: none; background: none; border: none; color: var(--cream); font-size: 1.6rem; cursor: pointer; }
 
 @media (max-width: 760px) {
+  header { padding: 8px 16px; }
+  .header-acciones { margin-left: auto; }
+  .nav-toggle { display: flex; }
+
   nav {
-    position: absolute; top: 100%; left: 0; right: 0;
-    background: var(--brown); flex-direction: column;
-    padding: 12px 24px 20px; gap: 14px; display: none;
+    position: absolute; top: 100%; left: 0; right: 0; margin-left: 0;
+    background: var(--brown); flex-direction: column; align-items: flex-start;
+    padding: 8px 20px 20px; gap: 4px; display: none;
+    box-shadow: 0 10px 20px rgba(0,0,0,.25);
   }
   nav.open { display: flex; }
-  .nav-toggle { display: block; }
+  nav a { width: 100%; padding: 12px 0; border-bottom: 1px solid rgba(255,255,255,.08); }
+  nav .btn-admin, nav .btn-salir, nav .header-usuario { margin-top: 10px; }
 }
 
 /* Hero */
@@ -85,6 +104,23 @@ nav a:hover { opacity: 1; color: var(--gold); }
   color: var(--cream); position: relative; overflow: hidden;
 }
 .hero::after { content: "☕"; position: absolute; right: -40px; bottom: -60px; font-size: 22rem; opacity: .06; }
+.hero-imagen { display: none; }
+@media (min-width: 900px) and (orientation: landscape) {
+  .hero-imagen {
+    display: block;
+    position: absolute;
+    top: 0; right: 0; bottom: 0;
+    width: 50%;
+    background: url('/EMPRESA.png') center / cover no-repeat;
+    /* degradado: transparente a la izquierda → imagen completa a la derecha */
+    -webkit-mask-image: linear-gradient(to right, transparent 0%, #000 55%);
+            mask-image: linear-gradient(to right, transparent 0%, #000 55%);
+    z-index: 0;
+  }
+
+  /* El contenido del hero queda por encima de la imagen */
+  .hero > *:not(.hero-imagen) { position: relative; z-index: 1; }
+}
 .hero h1 { font-size: clamp(2.4rem, 6vw, 4.2rem); line-height: 1.05; max-width: 14ch; }
 .hero p { margin-top: 18px; max-width: 46ch; font-size: 1.1rem; color: #E8DFD8; }
 .hero-ctas { margin-top: 32px; display: flex; gap: 16px; flex-wrap: wrap; }
@@ -413,4 +449,32 @@ footer p, footer a { font-size: .88rem; line-height: 1.7; color: #C9BEB8; }
 @keyframes pulso-admin {
   70%  { box-shadow: 0 0 0 10px rgba(180, 80, 50, 0); }
   100% { box-shadow: 0 0 0 0 rgba(180, 80, 50, 0); }
+}
+
+@media (max-width: 760px) {
+  header { align-items: center; }
+
+  .header-acciones { display: flex; align-items: center; gap: 4px; }
+
+  /* Mismo tamaño y centrado para carrito y ☰ */
+  .header-acciones .cart-toggle,
+  .header-acciones .nav-toggle {
+    position: static;            /* anula el top: -4px */
+    top: auto;
+    width: 44px; height: 44px;
+    padding: 0; margin: 0;
+    display: flex; align-items: center; justify-content: center;
+    line-height: 1;
+  }
+  .header-acciones .cart-toggle { position: relative; }  /* para ubicar el badge */
+  .header-acciones .cart-toggle svg { width: 24px; height: 24px; display: block; }
+
+  .header-acciones .cart-badge {
+    top: 4px; right: 2px;
+    justify-content: center;
+    line-height: 1;
+  }
+
+  /* Icono de usuario dentro del menú desplegable */
+  nav .cart-toggle { top: auto; width: auto; height: auto; padding: 8px 0; }
 }

@@ -125,6 +125,7 @@ const agregar = (p) => {
 
       {/* Hero */}
       <section className="hero" id="inicio">
+      <div className="hero-imagen" aria-hidden="true"></div>
         <h1>Aroma, tradición<br />y origen mexicano</h1>
         <p>
           Descubre granos de las regiones cafetaleras de México, métodos de
@@ -245,7 +246,6 @@ const agregar = (p) => {
       {productoActivo && (
       <Modal3D producto={productoActivo} onClose={() => setProductoActivo(null)} />
       )}
-      
 
       {/* Footer */}
       <footer id="contacto">

@@ -159,7 +159,7 @@ export default function AdminProductos() {
         />
         <select value={filtroEstado} onChange={(e) => setFiltroEstado(e.target.value)}>
           <option value="todos">Todos</option>
-          <option value="1">Activos</option>
+          <option value='1'>Activos</option>
           <option value='0' >Inactivos</option>
         </select>
         <button className="btn btn-gold" onClick={abrirCrear}>+ Nuevo producto</button>
