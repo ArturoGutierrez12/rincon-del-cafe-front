@@ -72,13 +72,16 @@ export function Modal3D({ producto, onClose }) {
           <button onClick={onClose} aria-label="Cerrar">✕</button>
         </div>
  
-        {estado === 'cargando' && <p className="modal3d-estado">Cargando modelo…</p>}
-        {estado === 'error' && (
-          <p className="modal3d-estado">
-            No se pudo cargar el modelo. Archivo buscado: {rutaOBJ}
-          </p>
-        )}
- 
+        <div className="modal3d-cuerpo">
+          <aside className="modal3d-info">
+            <h4>Descripción</h4>
+            <p>{producto.descripcion || 'Sin descripción disponible.'}</p>
+          </aside>
+
+              <div className="modal3d-escena">
+            {estado === 'cargando' && <p className="modal3d-estado">Cargando modelo…</p>}
+            {estado === 'error' && <p className="modal3d-estado">No se pudo cargar el modelo.</p>}
+
         {/* key={id}: si cambia el producto, React desmonta y monta la escena de nuevo */}
         <a-scene key={id} embedded vr-mode-ui="enabled: false" background="color: #e7e7e7">
           {/* Prueba rápida: descomenta para confirmar que la escena funciona sin el modelo */}
@@ -98,6 +101,8 @@ export function Modal3D({ producto, onClose }) {
           <a-entity camera position="0 1 3"></a-entity>
         </a-scene>
       </div>
+    </div>
+    </div>
     </div>
   )
 }

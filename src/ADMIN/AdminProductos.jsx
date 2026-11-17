@@ -8,8 +8,7 @@ import {
   desactivarProducto,
   reactivarProducto,
 } from '../components/adminApi.js'
-import { CATEGORIAS, comoLista, dinero, estaActivo } from '../components/utilidades.js'
-
+import { CATEGORIAS, comoLista, dinero, estaActivo, srcImagen } from '../components/utilidades.js'
 const VACIO = {
   id_producto: '',
   nombre: '',
@@ -78,6 +77,7 @@ export default function AdminProductos() {
         id_producto: p.id_producto,
         nombre: p.nombre ?? '',
         descripcion: p.descripcion ?? '',
+        imagen: p.imagen ?? '',
         id_categoria: String(p.id_categoria ?? '1'),
         id_origen: String(p.id_origen ?? ''),
         id_tueste: String(p.id_tueste ?? ''),
@@ -194,7 +194,7 @@ export default function AdminProductos() {
                     <td>
                       <img
                         className="admin-miniatura"
-                        src={`/PRODUCTOS/${p.id_categoria}/${p.id_producto}.png`}
+                        src={srcImagen(p)}
                         alt=""
                         onError={(e) => { e.currentTarget.style.visibility = 'hidden' }}
                       />
@@ -240,6 +240,13 @@ export default function AdminProductos() {
               Descripción
               <textarea name="descripcion" rows="3" value={formulario.datos.descripcion} onChange={cambiarCampo} />
             </label>
+            <label>
+              Imagen (ruta)
+              <input name="imagen" placeholder="/PRODUCTOS/1/5.png" value={formulario.datos.imagen} onChange={cambiarCampo} />
+            </label>
+            {formulario.datos.imagen && (
+              <img src={formulario.datos.imagen} alt="Vista previa" style={{ width: 80, height: 80, objectFit: 'contain' }} />
+            )}
 
             <label>
               Categoría

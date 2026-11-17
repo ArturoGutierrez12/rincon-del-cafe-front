@@ -26,6 +26,7 @@ export function comoLista(data, ...claves) {
   }
   return []
 }
+export const srcImagen = (p) => p.imagen || `/PRODUCTOS/${p.id_categoria}/${p.id_producto}.png`;
 
 // Devuelve el primer campo que exista. Sirve por si el backend nombra distinto una columna.
 export function primero(obj, ...claves) {

@@ -377,7 +377,7 @@ footer p, footer a { font-size: .88rem; line-height: 1.7; color: #C9BEB8; }
 .modal3d-panel {
   background: var(--cream);
   border-radius: 16px;
-  width: min(600px, 90vw);
+  width: min(900px, 92vw); 
   height: min(500px, 80vh);
   display: flex; flex-direction: column;
   overflow: hidden;
@@ -388,12 +388,24 @@ footer p, footer a { font-size: .88rem; line-height: 1.7; color: #C9BEB8; }
   border-bottom: 1px solid var(--line);
 }
 .modal3d-panel a-scene { flex: 1; width: 100%; }
-
+.modal3d-cuerpo { flex: 1; display: flex; min-height: 0; }
 .carrito-item-imagen {
   width: 60px;
   height: 60px;
   object-fit: cover;
   border-radius: 8px;
+}
+.modal3d-info {
+  flex: 0 0 35%; padding: 18px; overflow-y: auto;
+  border-right: 1px solid var(--line);
+}
+.modal3d-info h4 { font-family: var(--font-display); color: var(--brown); margin-bottom: 8px; }
+.modal3d-info p { font-size: .9rem; color: var(--muted); line-height: 1.6; }
+.modal3d-escena { flex: 1; display: flex; flex-direction: column; min-width: 0; }
+
+@media (max-width: 760px) {
+  .modal3d-cuerpo { flex-direction: column; }
+  .modal3d-info { flex: none; max-height: 30%; border-right: none; border-bottom: 1px solid var(--line); }
 }
 
 .acc {

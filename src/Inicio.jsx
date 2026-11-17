@@ -11,7 +11,7 @@ import { Link } from 'react-router'
 import { Header } from './components/Header.jsx'
 import { useCarrito } from './context/CarritoContext.jsx'
 import { evento, itemGA } from './analytics.js'
-
+import { srcImagen } from './components/utilidades.js'
 // Misma info de categorías del HTML. Las llaves deben coincidir con
 // el valor del campo `categoria` de tus productos.
 
@@ -39,14 +39,7 @@ function TarjetaProducto({ producto, onVer3D, onAgregar }) {
     <div className="card" style={{ '--accent': info.accent }}>
       <div className="card-visual">
         <span className="card-badge">{info.label}/</span>
-        <img
-            src={`/PRODUCTOS/${producto.id_categoria}/${producto.id_producto}.webp`}
-            alt={producto.nombre}
-            width="150"
-            height="150"
-            loading="lazy"
-            decoding="async"
-        />
+        <img src={srcImagen(producto)} />
         
       </div>
       <div className="card-body">
