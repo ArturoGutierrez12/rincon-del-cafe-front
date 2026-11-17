@@ -46,12 +46,24 @@ export async function obtenerProductosVendidos() {
   return procesarRespuesta(res)
 }
 
+
 export async function obtenerProductos() {
   const res = await fetch(
-    `${API}/productos/listar.php`
+    `${API}/admin/productos/listar.php`,
+    {
+      credentials: 'include',
+    }
   )
 
-  return procesarRespuesta(res)
+  const data = await res.json().catch(() => ({}))
+
+  if (!res.ok || data.ok === false) {
+    throw new Error(
+      data.mensaje || 'No se pudieron obtener los productos'
+    )
+  }
+
+  return data
 }
 
 export async function crearProducto(producto) {

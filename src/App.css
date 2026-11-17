@@ -478,3 +478,6 @@ footer p, footer a { font-size: .88rem; line-height: 1.7; color: #C9BEB8; }
   /* Icono de usuario dentro del menú desplegable */
   nav .cart-toggle { top: auto; width: auto; height: auto; padding: 8px 0; }
 }
+.header-acciones { order: 2; }
+nav { order: 1; margin-left: auto; }
+.nav-toggle { display: none; }

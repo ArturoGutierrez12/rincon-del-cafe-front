@@ -40,7 +40,14 @@ function TarjetaProducto({ producto, onVer3D, onAgregar }) {
     <div className="card" style={{ '--accent': info.accent }}>
       <div className="card-visual">
         <span className="card-badge">{info.label}/</span>
-        <img src={`/PRODUCTOS/${producto.id_categoria}/${producto.id_producto}.png`} />
+        <img
+            src={`/PRODUCTOS/${producto.id_categoria}/${producto.id_producto}.webp`}
+            alt={producto.nombre}
+            width="150"
+            height="150"
+            loading="lazy"
+            decoding="async"
+        />
         
       </div>
       <div className="card-body">
@@ -115,10 +122,11 @@ const agregar = (p) => {
       {/* 2. Carrito lateral: se monta/desmonta según carritoAbierto */}
       {carritoAbierto && (
         <CarritoLateral
-          carrito={carrito}
-          cambiarCantidad={cambiarCantidad}
-          quitarDelCarrito={quitarDelCarrito}
-          onClose={() => setCarritoAbierto(false)}
+            carrito={carrito}
+            productos={productos}
+            cambiarCantidad={cambiarCantidad}
+            quitarDelCarrito={quitarDelCarrito}
+            onClose={() => setCarritoAbierto(false)}
         />
       )}
       

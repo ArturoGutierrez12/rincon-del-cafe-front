@@ -40,7 +40,7 @@ export default function AdminProductos() {
     try {
       setError('')
       const data = await obtenerProductos()
-      console.log('ADMIN PRODUCTOS:', data)
+
       setProductos(comoLista(data, 'productos'))
     } catch (e) {
       setError(e.message)
@@ -48,6 +48,7 @@ export default function AdminProductos() {
       setCargando(false)
     }
   }, [])
+  
 
   useEffect(() => {
     cargar()

@@ -2,7 +2,7 @@ import { Link } from 'react-router'
 import { useAuth } from './context/AuthContext.jsx'
 import './App.css'
 
-export function CarritoLateral({ carrito, cambiarCantidad, quitarDelCarrito, onClose }) {
+export function CarritoLateral({ carrito, productos = [], cambiarCantidad, quitarDelCarrito, onClose }) {
   const { usuario } = useAuth()
 
   const total = carrito.reduce(
@@ -21,30 +21,39 @@ export function CarritoLateral({ carrito, cambiarCantidad, quitarDelCarrito, onC
         <p>Tu carrito está vacío</p>
       ) : (
         <ul className="carrito-items">
-          {carrito.map((item) => (
-            <li key={item.producto.id_producto} className="carrito-item">
-              <img
-                src={`/PRODUCTOS/${item.producto.id_categoria}/${item.producto.id_producto}.png`}
-                alt={item.producto.nombre}
-                className="carrito-item-imagen"
-              />
-              <span className="carrito-item-nombre">{item.producto.nombre}</span>
+          {carrito.map((item) => {
+            const idCategoria = productos.find(
+              (p) => Number(p.id_producto) === item.producto.id_producto
+            )?.id_categoria
 
-              <div className="carrito-item-cantidad">
-                <button onClick={() => cambiarCantidad(item.producto.id_producto, item.cantidad - 1)}>−</button>
-                <span>{item.cantidad}</span>
-                <button onClick={() => cambiarCantidad(item.producto.id_producto, item.cantidad + 1)}>+</button>
-              </div>
+            return (
+              <li key={item.producto.id_producto} className="carrito-item">
+                <img
+                  src={`/PRODUCTOS/${idCategoria}/${item.producto.id_producto}.webp`}
+                  alt={item.producto.nombre}
+                  className="carrito-item-imagen"
+                  width="60"
+                  height="60"
+                  decoding="async"
+                />
+                <span className="carrito-item-nombre">{item.producto.nombre}</span>
 
-              <span className="carrito-item-subtotal">
-                ${(Number(item.producto.precio) * item.cantidad).toFixed(2)}
-              </span>
+                <div className="carrito-item-cantidad">
+                  <button onClick={() => cambiarCantidad(item.producto.id_producto, item.cantidad - 1)}>−</button>
+                  <span>{item.cantidad}</span>
+                  <button onClick={() => cambiarCantidad(item.producto.id_producto, item.cantidad + 1)}>+</button>
+                </div>
 
-              <button className="carrito-item-eliminar" onClick={() => quitarDelCarrito(item.producto.id_producto)}>
-                🗑️
-              </button>
-            </li>
-          ))}
+                <span className="carrito-item-subtotal">
+                  ${(Number(item.producto.precio) * item.cantidad).toFixed(2)}
+                </span>
+
+                <button className="carrito-item-eliminar" onClick={() => quitarDelCarrito(item.producto.id_producto)}>
+                  🗑️
+                </button>
+              </li>
+            )
+          })}
         </ul>
       )}
 
