@@ -50,11 +50,11 @@ export default function AdminProductosVendidos() {
             <tbody>
               {ordenadas.map((f, i) => (
                 <tr key={primero(f, 'id_producto') ?? i}>
-                  <td>{i + 1}</td>
-                  <td>{primero(f, 'nombre', 'producto', 'nombre_producto') ?? '—'}</td>
-                  <td>{cantidadDe(f)}</td>
-                  <td>{ingresosDe(f) === undefined ? '—' : dinero(ingresosDe(f))}</td>
-                </tr>
+                <td data-label="#">{i + 1}</td>
+                <td data-label="Producto">{primero(f, 'nombre', 'producto', 'nombre_producto') ?? '—'}</td>
+                <td data-label="Unidades">{cantidadDe(f)}</td>
+                <td data-label="Ingresos">{ingresosDe(f) === undefined ? '—' : dinero(ingresosDe(f))}</td>
+              </tr>
               ))}
             </tbody>
           </table>

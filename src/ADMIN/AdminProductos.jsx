@@ -199,14 +199,14 @@ export default function AdminProductos() {
                         onError={(e) => { e.currentTarget.style.visibility = 'hidden' }}
                       />
                     </td>
-                    <td>{p.nombre}</td>
-                    <td>{CATEGORIAS[p.id_categoria] ?? p.id_categoria}</td>
-                    <td>{dinero(p.precio)}</td>
-                    <td>{p.stock}</td>
-                    <td>
-                      <span className={`insignia ${activo ? 'insignia-ok' : 'insignia-off'}`}>
-                        {activo ? 'Activo' : 'Inactivo'}
-                      </span>
+                    <td data-label="Nombre">{p.nombre}</td>
+                    <td data-label="Categoría">{CATEGORIAS[p.id_categoria] ?? p.id_categoria}</td>
+                    <td data-label="Precio">{dinero(p.precio)}</td>
+                    <td data-label="Stock">{p.stock}</td>
+                    <td data-label="Estado">
+                    <span className={`insignia ${activo ? 'insignia-ok' : 'insignia-off'}`}>
+                      {activo ? 'Activo' : 'Inactivo'}
+                    </span>
                     </td>
                     <td className="admin-acciones">
                       <button onClick={() => abrirEditar(p)}>Editar</button>

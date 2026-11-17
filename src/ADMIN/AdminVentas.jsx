@@ -75,14 +75,14 @@ export default function AdminVentas() {
                 const id = primero(v, 'id_venta', 'id')
                 return (
                   <tr key={id ?? i}>
-                    <td>#{id}</td>
-                    <td>{primero(v, 'usuario', 'nombre', 'nombre_usuario', 'cuenta', 'id_usuario') ?? '—'}</td>
-                    <td>{fechaLegible(primero(v, 'fecha', 'fecha_venta', 'created_at'))}</td>
-                    <td>{dinero(primero(v, 'total', 'monto'))}</td>
-                    <td className="admin-acciones">
-                      <button onClick={() => verDetalle(v)}>Ver detalle</button>
-                    </td>
-                  </tr>
+                  <td data-label="Venta">#{id}</td>
+                  <td data-label="Cuenta">{primero(v, 'usuario', 'nombre', 'nombre_usuario', 'cuenta', 'id_usuario') ?? '—'}</td>
+                  <td data-label="Fecha">{fechaLegible(primero(v, 'fecha', 'fecha_venta', 'created_at'))}</td>
+                  <td data-label="Total">{dinero(primero(v, 'total', 'monto'))}</td>
+                  <td data-label="" className="admin-acciones">
+                    <button onClick={() => verDetalle(v)}>Ver detalle</button>
+                  </td>
+                </tr>
                 )
               })}
             </tbody>
@@ -120,11 +120,11 @@ export default function AdminVentas() {
                       const subtotal = primero(l, 'subtotal') ?? Number(precio ?? 0) * cantidad
                       return (
                         <tr key={primero(l, 'id_producto') ?? i}>
-                          <td>{primero(l, 'nombre', 'producto', 'nombre_producto') ?? '—'}</td>
-                          <td>{cantidad}</td>
-                          <td>{dinero(precio)}</td>
-                          <td>{dinero(subtotal)}</td>
-                        </tr>
+                        <td data-label="Producto">{primero(l, 'nombre', 'producto', 'nombre_producto') ?? '—'}</td>
+                        <td data-label="Cant.">{cantidad}</td>
+                        <td data-label="Precio">{dinero(precio)}</td>
+                        <td data-label="Subtotal">{dinero(subtotal)}</td>
+                      </tr>
                       )
                     })}
                   </tbody>

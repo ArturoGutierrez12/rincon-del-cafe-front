@@ -1,4 +1,4 @@
-import { useState, useRef, useEffect } from 'react'
+import { useState, useRef, useEffect, Suspense } from 'react'
 import 'react-aframe-ar'
 import './App.css'
 import { Iconocarrito } from './components/iconCarrito.jsx'
@@ -11,7 +11,6 @@ import { Link } from 'react-router'
 import { Header } from './components/Header.jsx'
 import { useCarrito } from './context/CarritoContext.jsx'
 import { evento, itemGA } from './analytics.js'
-
 
 // Misma info de categorías del HTML. Las llaves deben coincidir con
 // el valor del campo `categoria` de tus productos.

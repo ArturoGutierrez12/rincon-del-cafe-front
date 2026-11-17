@@ -26,20 +26,7 @@
   box-sizing: border-box;
 }
 
-@media (prefers-color-scheme: dark) {
-  :root:not([data-theme="light"]) {
-    --cream: #1E1512;
-    --card-bg: #2A1F1B;
-    --text: #EDE3DC;
-    --muted: #B8A99F;
-  }
-}
-:root[data-theme="dark"] {
-  --cream: #1E1512;
-  --card-bg: #2A1F1B;
-  --text: #EDE3DC;
-  --muted: #B8A99F;
-}
+
 
 /* Reset base */
 *, *::before, *::after { box-sizing: inherit; margin: 0; padding: 0; }

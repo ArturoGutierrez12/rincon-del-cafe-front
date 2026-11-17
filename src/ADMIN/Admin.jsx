@@ -22,28 +22,39 @@ export default function Admin() {
   if (!usuario) return <Navigate to="/login" replace />
 
   return (
-    <main className="admin-pagina">
-      <header className="admin-cabecera">
-        <h1>Panel de administración</h1>
-        <Link to="/" className="admin-volver">← Volver a la tienda</Link>
-      </header>
+  <main className="admin-pagina">
+    <div className="admin-encabezado">
+    <div className="admin-cabecera">
+      <Link to="/" className="admin-volver" aria-label="Volver a la tienda">
+        <span aria-hidden="true">←</span>
+        <span className="admin-volver-texto">Tienda</span>
+      </Link>
 
-      <nav className="admin-tabs">
-        {PESTANAS.map((p) => (
-          <button
-            key={p.id}
-            className={`admin-tab${pestana === p.id ? ' activa' : ''}`}
-            onClick={() => setPestana(p.id)}
-          >
-            {p.etiqueta}
-          </button>
-        ))}
-      </nav>
+      <h1>Panel de administración</h1>
 
-      {/* Solo se monta la pestaña activa: cada una pide sus datos al abrirse */}
-      {pestana === 'productos' && <AdminProductos />}
-      {pestana === 'ventas' && <AdminVentas />}
-      {pestana === 'vendidos' && <AdminProductosVendidos />}
-    </main>
-  )
+      <span className="admin-usuario" title={usuario.nombre}>
+        {usuario.nombre}
+      </span>
+    </div>
+
+    <div className="admin-tabs" role="tablist">
+      {PESTANAS.map((p) => (
+        <button
+          key={p.id}
+          role="tab"
+          aria-selected={pestana === p.id}
+          className={`admin-tab${pestana === p.id ? ' activa' : ''}`}
+          onClick={() => setPestana(p.id)}
+        >
+          {p.etiqueta}
+        </button>
+      ))}
+    </div>
+    </div>
+
+    {pestana === 'productos' && <AdminProductos />}
+    {pestana === 'ventas' && <AdminVentas />}
+    {pestana === 'vendidos' && <AdminProductosVendidos />}
+  </main>
+)
 }
