@@ -1,6 +1,6 @@
 // src/pages/admin/Admin.jsx
 // Pantalla principal de administración, con pestañas.
-import { useState } from 'react'
+import { useState, useEffect } from 'react'
 import { Link, Navigate } from 'react-router'
 import { useAuth } from '../context/AuthContext.jsx'
 import AdminProductos from './AdminProductos.jsx'
@@ -17,7 +17,10 @@ const PESTANAS = [
 export default function Admin() {
   const { usuario } = useAuth()
   const [pestana, setPestana] = useState('productos')
-
+  useEffect(() => {
+  if (usuario?.rol !== 'administrador') return
+  window.gtag?.('set', 'user_properties', { rol: 'administrador' })
+}, [usuario])
   // El permiso real lo valida el backend (si no eres admin, mostrará su mensaje de error)
   if (!usuario) return <Navigate to="/login" replace />
 

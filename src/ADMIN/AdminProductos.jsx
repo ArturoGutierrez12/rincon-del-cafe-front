@@ -8,6 +8,7 @@ import {
   desactivarProducto,
   reactivarProducto,
 } from '../components/adminApi.js'
+import { evento } from '../analytics.js'
 import { CATEGORIAS, comoLista, dinero, estaActivo, srcImagen } from '../components/utilidades.js'
 const VACIO = {
   id_producto: '',
@@ -83,6 +84,7 @@ export default function AdminProductos() {
         id_tueste: String(p.id_tueste ?? ''),
         precio: String(p.precio ?? ''),
         stock: String(p.stock ?? ''),
+        stock_original: Number(p.stock ?? 0),  
       },
     })
   }
@@ -118,9 +120,30 @@ export default function AdminProductos() {
 
       if (formulario.modo === 'crear') {
         await crearProducto(producto)
+        evento('admin_producto_crear', {
+          id_categoria: producto.id_categoria,
+          precio: producto.precio,
+          stock: producto.stock,
+        })
         setAviso('Producto creado')
       } else {
         await modificarProducto({ ...producto, id_producto: Number(d.id_producto) })
+
+        evento('admin_producto_modificar', {
+          item_id: String(d.id_producto),
+          id_categoria: producto.id_categoria,
+        })
+
+        const delta = producto.stock - d.stock_original
+        if (delta !== 0) {
+          evento('admin_stock_cambio', {
+            item_id: String(d.id_producto),
+            stock_anterior: d.stock_original,
+            stock_nuevo: producto.stock,
+            delta,
+          })
+        }
+
         setAviso('Producto actualizado')
       }
 
@@ -141,7 +164,12 @@ export default function AdminProductos() {
     try {
       setError('')
       if (activo) await desactivarProducto(p.id_producto)
-      else await reactivarProducto(p.id_producto)
+        else await reactivarProducto(p.id_producto)
+
+        evento(activo ? 'admin_producto_desactivar' : 'admin_producto_reactivar', {
+          item_id: String(p.id_producto),
+          id_categoria: p.id_categoria,
+        })
       setAviso(activo ? 'Producto desactivado' : 'Producto reactivado')
       await cargar()
     } catch (e) {
