@@ -9,7 +9,7 @@ export const itemGA = (producto, cantidad = 1) => ({
   quantity: Number(cantidad),
 })
 
-export function registrarCompra({idVenta,total,productos}) {
+export function registrarCompra({ idVenta, total, productos, metodoPago }) {
   if (!idVenta) {
     console.warn('No se registró purchase porque falta idVenta')
     return
@@ -19,9 +19,7 @@ export function registrarCompra({idVenta,total,productos}) {
     transaction_id: String(idVenta),
     value: Number(total),
     currency: 'MXN',
-    items: productos.map((item) =>
-      itemGA(item.producto, item.cantidad)
-    ),
+    payment_type: metodoPago || 'no_definido',
+    items: productos.map((item) => itemGA(item.producto, item.cantidad)),
   })
 }
-

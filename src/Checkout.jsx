@@ -69,7 +69,7 @@ if (carrito.length === 0) return <Navigate to="/" replace />
   setErrorServidor('')
 
   try {
-    const resultado = await finalizarCompra(usuario.id_usuario)
+    const resultado = await finalizarCompra(usuario.id_usuario, pago)
 
     const venta = resultado.venta
 
@@ -78,6 +78,7 @@ if (carrito.length === 0) return <Navigate to="/" replace />
       idVenta: venta.id_venta,
       total: venta.total,
       productos: carrito,
+      metodoPago: venta.metodo_pago ?? pago, 
     })
 
     const pedido = {
