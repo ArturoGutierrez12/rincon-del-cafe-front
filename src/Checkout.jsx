@@ -1,14 +1,13 @@
 // src/pages/Checkout.jsx
 // Formulario de envío + método de pago simple. Al confirmar, manda al ticket.
-import { useState } from 'react'
+import { useEffect, useRef,useState } from 'react'
 import { Link, Navigate, useNavigate } from 'react-router'
 import { useAuth } from './context/AuthContext.jsx'
 import { useCarrito } from './context/CarritoContext.jsx'
 import { CampoFormulario } from './components/CampoFormulario.jsx'
 import './Checkout.css' // (los estilos de .formulario y .campo vienen de Login.css)
 import { finalizarCompra } from './components/VentasApi.js' // ajusta la ruta a donde lo tengas
-import { registrarCompra } from './analytics.js'
-
+import { registrarCompra, evento, itemGA  } from './analytics.js'
 // Métodos de pago sencillos y simulados. No se piden datos de tarjeta.
 const PAGOS = [
   {
@@ -39,6 +38,16 @@ export default function Checkout() {
   })
   const [pago, setPago] = useState('efectivo')
   const [errores, setErrores] = useState({})
+const inicioRegistrado = useRef(false)
+useEffect(() => {
+  if (cargandoCarrito || carrito.length === 0 || inicioRegistrado.current) return
+  inicioRegistrado.current = true
+  evento('begin_checkout', {
+    currency: 'MXN',
+    value: Number(total),
+    items: carrito.map(({ producto, cantidad }) => itemGA(producto, cantidad)),
+  })
+}, [cargandoCarrito, carrito, total])
 
 if (!usuario) return <Navigate to="/login" replace />
 if (cargandoCarrito) return <p>Cargando pedido…</p>
@@ -64,7 +73,13 @@ if (carrito.length === 0) return <Navigate to="/" replace />
   const nuevos = validar()
   setErrores(nuevos)
   if (Object.keys(nuevos).length > 0) return
-
+    const paramsGA = {
+      currency: 'MXN',
+      value: Number(total),
+      items: carrito.map(({ producto, cantidad }) => itemGA(producto, cantidad)),
+    }
+  evento('add_shipping_info', { ...paramsGA, shipping_tier: 'Estándar' })
+  evento('add_payment_info', { ...paramsGA, payment_type: pago })
   setEnviando(true)
   setErrorServidor('')
 
