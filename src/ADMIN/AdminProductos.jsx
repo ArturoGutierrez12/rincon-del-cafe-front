@@ -4,7 +4,7 @@ import { useCallback, useEffect, useState } from 'react'
 import {
   obtenerProductos,
   crearProducto,
-  modificarProducto,
+  modificarProducto, 
   desactivarProducto,
   reactivarProducto,
 } from '../components/adminApi.js'
