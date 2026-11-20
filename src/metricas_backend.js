@@ -43,15 +43,29 @@ export async function medirApi(url, options = {}) {
  * result: accepted | rejected | error
  * processed_ok = true si el backend respondió bien (aceptó válidas o rechazó inválidas).
  * KPI = auth_attempt con processed_ok=true / total de auth_attempt */
-export function registrarAutenticacion({ res, data }) {
+export function registrarAutenticacion({ res, data }, tipo = 'login') {
   let result = 'error';
-  if (res && res.status < 500) result = data && data.ok === true ? 'accepted' : 'rejected';
+  if (res && res.status < 500) {
+    result = data && data.ok === true ? 'accepted' : 'rejected';
+  }
 
+  // Todos los intentos (denominador del KPI)
   track('auth_attempt', {
+    action: tipo,                       // 'login' | 'registro'
     result,
     processed_ok: bool(result !== 'error'),
     role: (data && data.usuario && data.usuario.rol) || 'ninguno',
   });
+
+  // Credenciales válidas
+  if (result === 'accepted') {
+    track('auth_success', { action: tipo, role: data.usuario?.rol || 'ninguno' });
+  }
+  // Backend rechazó correctamente credenciales inválidas
+  else if (result === 'rejected') {
+    track('auth_rejected', { action: tipo });
+  }
+  // Si fue 'error' (5xx / red caída) solo queda auth_attempt con processed_ok=false
 }
 
 /* ---------- M3: tiempo de procesamiento de una compra ---------- */

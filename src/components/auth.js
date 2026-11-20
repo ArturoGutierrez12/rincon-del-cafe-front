@@ -33,7 +33,8 @@ export async function registrarUsuario({ usuario, contrasena }) {
     body: JSON.stringify({ nombre: usuario, password: contrasena }),
   })
 
-    registrarAutenticacion(r)
+    registrarAutenticacion(r, 'login')     // en iniciarSesion
+    registrarAutenticacion(r, 'registro')  // en registrarUsuario
     const { res, data } = r
 
   if (!res || !res.ok || data?.ok === false) {

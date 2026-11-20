@@ -1,7 +1,7 @@
 import { Link } from 'react-router'
 import { useAuth } from './context/AuthContext.jsx'
 import './App.css'
-
+import { CATEGORIAS, comoLista, dinero, estaActivo, srcImagen } from '../components/utilidades.js'
 export function CarritoLateral({ carrito, productos = [], cambiarCantidad, quitarDelCarrito, onClose }) {
   const { usuario } = useAuth()
 
