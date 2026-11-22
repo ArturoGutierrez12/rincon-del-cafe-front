@@ -23,8 +23,9 @@ export function CarritoLateral({ carrito, productos = [], cambiarCantidad, quita
         <ul className="carrito-items">
           {carrito.map((item) => {
             
-            const idCategoria = Number.isFinite(item.producto.id_categoria)
-              ? item.producto.id_categoria
+            const categoriaItem = Number(item.producto.id_categoria)
+            const idCategoria = Number.isFinite(categoriaItem)
+              ? categoriaItem
               : productos.find((p) => Number(p.id_producto) === item.producto.id_producto)?.id_categoria
             return (
               <li key={item.producto.id_producto} className="carrito-item">
