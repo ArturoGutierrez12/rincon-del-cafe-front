@@ -29,6 +29,7 @@ export async function obtenerCarrito(idUsuario) {
   const carrito = (data.productos || []).map((item) => ({
     producto: {
       id_producto: Number(item.id_producto),
+      id_categoria: Number(item.id_categoria),
       nombre: item.nombre,
       precio: Number(item.precio),
     },
