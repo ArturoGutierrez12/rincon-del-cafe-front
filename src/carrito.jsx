@@ -25,7 +25,7 @@ export function CarritoLateral({ carrito, productos = [], cambiarCantidad, quita
             
             const idCategoria = item.producto.id_categoria ??
               productos.find((p) => Number(p.id_producto) === item.producto.id_producto)?.id_categoria
-
+              console.log(item.producto, productos.length)
             return (
               <li key={item.producto.id_producto} className="carrito-item">
                 <img
