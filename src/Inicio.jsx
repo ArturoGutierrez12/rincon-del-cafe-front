@@ -114,11 +114,11 @@ const agregar = (p) => {
       {/* 2. Carrito lateral: se monta/desmonta según carritoAbierto */}
       {carritoAbierto && (
         <CarritoLateral
-            carrito={carrito}
-            productos={productos}
-            cambiarCantidad={cambiarCantidad}
-            quitarDelCarrito={quitarDelCarrito}
-            onClose={() => setCarritoAbierto(false)}
+          carrito={carrito}
+          productos={productos}
+          cambiarCantidad={cambiarCantidad}
+          quitarDelCarrito={quitarDelCarrito}
+          onClose={() => setCarritoAbierto(false)}
         />
       )}
       
